@@ -1,0 +1,58 @@
+body{
+	overflow:hidden; 
+	margin: 0;
+	padding: 0;
+}
+div{
+	/*border: solid 1px;*/
+}
+div.clear{
+	clear: both;
+}
+div#up{
+	width: auto;
+	height: 60px;
+}
+div#filter{
+	margin-top:13px; 
+	float:left;
+}
+div#search{
+	float:left;
+}
+div#bottom{
+	height:500px;
+	width:auto;
+}
+div#left_bottom{
+	float: left;
+	width: 300px;
+	height: 100%;
+}
+div#right_bottom{
+	float: left;
+	width: 1066px;
+	height: 100%;
+}
+
+	/* 定义自定义点样式 */
+div.marker{
+	height:40px;
+	background:url(http://pages.haozu.ajkcdn.com/20110909/img/map/marker.png) left top no-repeat;
+}
+div.marker div{
+	height:28px;
+	line-height:28px;
+	margin:0 10px;
+	color:#FFF;
+	background: url(http://pages.haozu.ajkcdn.com/20110909/img/map/marker_bg_170x28.gif) right top no-repeat;
+	padding-right:10px;
+}
+
+/* 修改背景URL */
+div.change{
+	background-image:url(http://pages.haozu.ajkcdn.com/20110909/img/map/marker-h.png);
+}
+div.change div{
+	background-image:url(http://pages.haozu.ajkcdn.com/20110909/img/map/marker-h-l.gif);
+}
