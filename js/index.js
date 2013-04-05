@@ -50,7 +50,7 @@ function initialize() {
 		scale = new AMap.Scale();
 		mapObj.addControl(scale);
 	});
-
+/*
 	var marker = new AMap.Marker({
 		id:"m",
 		position: point,
@@ -62,7 +62,7 @@ function initialize() {
 		}) 
 	});
 	mapObj.addOverlays(marker);
-
+*/
 
 	//自定义覆盖物dom元素
 	var m = document.createElement("div");
