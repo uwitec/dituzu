@@ -66,7 +66,7 @@ function initialize() {
 
 	//自定义覆盖物dom元素
 	var m = document.createElement("div");
-	m.className = "marker";
+	m.className = "mymarker";
 	var n = document.createElement("div");
 	n.innerHTML = "Amap";
 	m.appendChild(n);
