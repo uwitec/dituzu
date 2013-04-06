@@ -20,6 +20,9 @@ div#filter{
 div#search{
 	float:left;
 }
+div#search_wrapper a{
+	float:right;
+}
 div#bottom{
 	height:500px;
 	width:auto;
@@ -55,4 +58,29 @@ div.change{
 }
 div.change div{
 	background-image:url(http://pages.haozu.ajkcdn.com/20110909/img/map/marker-h-l.gif);
+}
+
+.diogs{
+	background: url(../image/bgx.png) no-repeat;
+	position: relative;
+	width:122px;
+	height:130px;
+}
+.diogs span{
+	background: url(../image/num_bg.png) no-repeat;
+	position: absolute;
+	right: 0;
+	width: 34px;
+	line-height: 34px;
+	text-align: center;
+	color: #FFF;
+}
+.diogs img{
+	margin: 19px 0 0 19px;
+}
+.diogs a{
+	text-align: center;
+	font-size: 11px;
+	display: block;
+	line-height: 14px;
 }

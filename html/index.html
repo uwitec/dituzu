@@ -10,49 +10,53 @@
 </head>
 <body scroll="no" onresize="onResize()" onload="initialize()">
 	<div id="up">
-		<div id="filter">
-			省份
-			<select name="province">
-				<option value="0">不限</option>
-				<option value="1">北京</option>
-				<option value="2">天津</option>
-			</select>
-			城市
-			<select name="city">
-				<option value="0">不限</option>
-				<option value="1">北京</option>
-				<option value="2">天津</option>
-			</select>
-			区域
-			<select name="area">
-				<option value="0">不限</option>
-				<option value="1">丰台区</option>
-				<option value="2">海淀区</option>
-			</select>
-			房型
-			<select name="type">
-				<option value="0">不限</option>
-				<option value="1">1室</option>
-				<option value="2">2室</option>
-			</select>
-			租金
-			<select name="price">
-				<option value="0">不限</option>
-				<option value="1">600元以下</option>
-				<option value="2">600-1000元</option>
-			</select>
-			方式
-			<select name="mode">
-				<option value="0">不限</option>
-				<option value="1">整租</option>
-				<option value="2">合租单间</option>
-				<option value="3">合租床位</option>
-			</select>
+		<div id="search_wrapper">
+			<div id="filter">
+				省份
+				<select name="province">
+					<option value="0">不限</option>
+					<option value="1">北京</option>
+					<option value="2">天津</option>
+				</select>
+				城市
+				<select name="city">
+					<option value="0">不限</option>
+					<option value="1">北京</option>
+					<option value="2">天津</option>
+				</select>
+				区域
+				<select name="area">
+					<option value="0">不限</option>
+					<option value="1">丰台区</option>
+					<option value="2">海淀区</option>
+				</select>
+				房型
+				<select name="type">
+					<option value="0">不限</option>
+					<option value="1">1室</option>
+					<option value="2">2室</option>
+				</select>
+				租金
+				<select name="price">
+					<option value="0">不限</option>
+					<option value="1">600元以下</option>
+					<option value="2">600-1000元</option>
+				</select>
+				方式
+				<select name="mode">
+					<option value="0">不限</option>
+					<option value="1">整租</option>
+					<option value="2">合租单间</option>
+					<option value="3">合租床位</option>
+				</select>
+			</div>
+			<div id="search">
+				<img src="../image/search.png"/>
+			</div>
+			<a href="#">发布信息</a>
+			<div class="clear"></div>
 		</div>
-		<div id="search">
-			<img src="../image/search.png"/>
-		</div>
-		<div class="clear"></div>
+
 	</div>
 	<div id="bottom">
 		<div id="left_bottom">猜你喜欢</div>
