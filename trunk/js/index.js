@@ -33,6 +33,44 @@ function onResize(){
 
 onResize();
 
+function customizeMarker(info){
+	//自定义覆盖物dom元素
+	autoIncrementId = 0;
+	var mDiv = document.createElement("div");
+	mDiv.className = "diogs";
+
+	var mImg = document.createElement("img");
+	mImg.src = info.imgSrc;
+	
+	var mSpan = document.createElement("span");
+	mSpan.innerHTML = info.num;
+	
+	var mAnchor = document.createElement("a");
+	mAnchor.innerHTML = info.briefDesc;
+	mAnchor.href = info.hopLink;
+	
+	mDiv.appendChild(mImg);
+	mDiv.appendChild(mSpan);
+	mDiv.appendChild(mAnchor);
+	
+	var marker = new AMap.Marker({
+		id:info.id,
+		position:info.location,
+		offset:new AMap.Pixel(-38,-120),
+		content:mDiv
+	});
+	mapObj.addOverlays(marker);
+	autoIncrementId++;
+	/*mapObj.bind(marker,"mouseover",function(){
+		n.innerHTML = "高德软件";
+		m.className = "marker change";
+	});
+	mapObj.bind(marker,"mouseout",function(){
+		n.innerHTML = "Amap";
+		m.className = m.className.replace(" change",""); 
+	});*/
+}
+
 var mapObj = null;
 function initialize() {
 	mapObj = new AMap.Map("right_bottom", {level:10}); // 创建地图实例
@@ -50,44 +88,32 @@ function initialize() {
 		scale = new AMap.Scale();
 		mapObj.addControl(scale);
 	});
-/*
-	var marker = new AMap.Marker({
-		id:"m",
-		position: point,
-		offset:new AMap.Pixel(-8, -34),
-		icon: new AMap.Icon({
-			size:new AMap.Size(27, 36),
-			image:"http://webapi.amap.com/static/images/custom_a_j.png",
-			imageOffset:new AMap.Pixel(-28,  0)
-		}) 
-	});
-	mapObj.addOverlays(marker);
-*/
 
-	//自定义覆盖物dom元素
-	var m = document.createElement("div");
-	m.className = "mymarker";
-	var n = document.createElement("div");
-	n.innerHTML = "Amap";
-	m.appendChild(n);
-	
-	var marker = new AMap.Marker({
-		id:"m225",
-		position:new AMap.LngLat(116.37388157654,39.907409934248),//基点位置
-		offset:new AMap.Pixel(0,-40),//相对于基点的偏移位置
-		//draggable:true, //是否可拖动
-		content:m //自定义覆盖物内容
+	customizeMarker({
+		id: "m225",
+		imgSrc: "../image/test.jpg", 
+		num: 3, 
+		briefDesc: "95㎡ 5000元/月", 
+		hopLink: "#", 
+		location: new AMap.LngLat(116.37388157654,39.907409934248)
 	});
-	mapObj.addOverlays(marker);  //添加到地图
-	//mouseover,换个皮肤
-	mapObj.bind(marker,"mouseover",function(){
-		n.innerHTML = "高德软件";//修改内容
-		m.className = "marker change";//增加样式
+
+	customizeMarker({
+		id: "m226",
+		imgSrc: "../image/test.jpg", 
+		num: 3, 
+		briefDesc: "2室1厅 5000元/月", 
+		hopLink: "#", 
+		location: new AMap.LngLat(116.57388157654,39.907409934248)
 	});
-	//mouseout,换回皮肤
-	mapObj.bind(marker,"mouseout",function(){
-		n.innerHTML = "Amap";//修改内容
-		m.className = m.className.replace(" change",""); 
+
+	customizeMarker({
+		id: "m227",
+		imgSrc: "../image/test.jpg", 
+		num: 43, 
+		briefDesc: "340㎡ 50000元/月", 
+		hopLink: "#", 
+		location: new AMap.LngLat(116.47388157654,40.027409934248)
 	});
 
 }
