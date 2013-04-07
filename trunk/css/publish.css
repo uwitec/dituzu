@@ -1,4 +1,66 @@
+body{
+	margin: 0;
+	padding: 0;
+}	
+label{
+	width: 86px;
+	float: left;
+	text-align: right;
+	padding-right: 14px;
+	line-height: 24px;
+}
+div#up, div#nav, form{
+	margin: 0 auto;
+	width: 960px;
+	overflow: hidden;
+	display: block;
+}
+input{
+	height: 26px;
+	font-size: 16px;
+	color: #333;
+	margin: 0;
+	padding: 0;
+}
 div#logo img{
 	width:72px;
 	height:72px;
+}
+div#bread{
+	height: 46px;
+	background: url(../image/nav_bg.png) repeat-x 0 27px;
+}
+a.step{
+	height: 33px;
+	width: 230px;
+	font-size: 16px;
+	display: block;
+	float:left;
+	border: 1px solid;
+	border-color: #e0e0e0;
+	line-height: 35px;
+	text-align: center;
+	background: #f4f4f4;
+}
+a.active{
+	border-bottom-width: 3px;
+	border-color: #ccc;
+	border-bottom-color: #fff;
+	font-weight: bold; 
+	background: #fff;
+}
+input.short{
+	width: 70px;
+}
+input[type="button"]{
+	margin-left: 100px;
+	height: 34px;
+	width: 109px;
+	border:0;
+	background: url(../image/next.png) no-repeat;
+}
+div#map_content{
+	border: 1px solid #e0e0e0;
+	width: 700px;
+	height: 300px;
 }
