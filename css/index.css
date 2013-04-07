@@ -20,8 +20,11 @@ div#filter{
 div#search{
 	float:left;
 }
-div#search_wrapper a{
+div#u{
 	float:right;
+}
+div#u a{
+	margin:0 5px;
 }
 div#bottom{
 	height:500px;
