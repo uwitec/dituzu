@@ -2,24 +2,45 @@
 <html>
 <head>
 	<title>悦租客-发布信息</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
 	<link rel="stylesheet" type="text/css" href="../css/publish.css" />
 	<link rel="icon" href="../image/favicon.ico" type="image/ico">
 	<link rel="shortcut icon" href="../image/favicon.ico">
+	<script type="text/javascript" src="../js/amap-v1.1-13.4.1.js"></script>
+	<script type="text/javascript" src="../js/publish.js"></script>
 </head>
-<body>
+<body onload="initialize()">
 	<div id="up">
 		<div id="logo">
 			<img src="../image/logo.png">
 		</div>
 	</div>
 	<div id="bread">
-		<a class="step_1 active" id="step_1">1.填写地理信息</a>
-		<a class="step_2">2.完善房屋信息</a>
-		<a class="step_3">3.请留下个人联系方式</a>
+		<div id="nav">
+			<a class="step active" id="step_1">1.填写地理信息</a>
+			<a class="step">2.完善房屋信息</a>
+			<a class="step">3.请留下您的联系方式</a>
+		</div>
 	</div>
 	<div id="step_1">
-
+		<form method="POST" autocomplete="off">
+			<p>
+				<label for="cn_label">小区名称</label>
+				<input type="text" id="cn_label" name="cell_name"/>
+			</p>
+			<p>
+				<label for="province_label">地址</label>
+				<input type="text" class="short" id="province_label" name="province"/>省
+				<input type="text" class="short" name="city"/>市
+				<input type="text" class="short" name="area"/>区
+				<input type="text" name="street"/>
+			</p>
+			<div id="map_content"></div>
+			<p>
+				<input type="button" value="下一步"/>
+			</p>
+		</form>
 	</div>
 	<div id="step_2">
 
