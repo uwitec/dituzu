@@ -18,9 +18,9 @@
 	</div>
 	<div id="bread">
 		<div id="nav">
-			<a class="step active" id="step_1">1.填写地理信息</a>
-			<a class="step">2.完善房屋信息</a>
-			<a class="step">3.请留下您的联系方式</a>
+			<a class="step active" id="nav_1">1.填写地理信息</a>
+			<a class="step" id="nav_2">2.完善房屋信息</a>
+			<a class="step" id="nav_3">3.请留下您的联系方式</a>
 		</div>
 	</div>
 	<div id="step_1">
@@ -38,12 +38,81 @@
 			</p>
 			<div id="map_content"></div>
 			<p>
-				<input type="button" value="下一步"/>
+				<input type="button" id="bStep1_next" value="下一步"/>
 			</p>
 		</form>
 	</div>
 	<div id="step_2">
-
+		<form method="POST" autocomplete="off">
+			<p>
+				<label>出租方式</label>
+				<input type="radio" name="rent_type" value="0" checked="checked"/>
+				<span class="for_radio">整租</span>
+				<input type="radio" name="rent_type" value="1"/>
+				<span class="for_radio">合租</span>
+			</p>
+			<p>
+				<label for="t_level">户型</label>
+				第<input class="x-short" type="text" name="level" id="t_level"/>层，
+				<input class="x-short" type="text" name="numrRoom"/>室
+				<input class="x-short" type="text" name="numHall">厅
+				<input class="x-short" type="text" name="numToilet">卫，
+				<input class="short" type="text" name="area" id="t_area"/>㎡
+			</p>
+			<p>
+				<label for="t_price">租金</label>
+				<input class="short" type="text" name="price" id="t_price" />元/月，
+				<select name="payment">
+					<option value="0">押一付三</option>
+					<option value="1">年付</option>
+					<option value="2">半年付</option>
+					<option value="3">可面议</option>
+				</select>
+			</p>
+			<p>
+				<label for="">房屋情况</label>
+				<select name="house_type">
+					<option value="0">公寓</option>
+					<option value="1">普通住宅</option>
+					<option value="2">别墅</option>
+					<option value="3">其他</option>
+				</select>，
+				<select name="decoration">
+					<option value="0">精装修</option>
+					<option value="1">普通装修</option>
+					<option value="2">毛坯</option>
+					<option value="3">豪华装修</option>
+				</select>，朝向
+				<select name="direction">
+					<option value="0">东</option>
+					<option value="1">南</option>
+					<option value="2">西</option>
+					<option value="3">北</option>
+					<option value="4">东北</option>
+					<option value="5">西北</option>
+					<option value="6">东南</option>
+					<option value="7">西南</option>
+				</select>
+			</p>
+			<p>
+				<label>配备</label>
+				<input type="checkbox" name="with" value="0"/><span class="for_checkbox">床</span>
+				<input type="checkbox" name="with" value="1"/><span class="for_checkbox">电视</span>
+				<input type="checkbox" name="with" value="2"/><span class="for_checkbox">空调</span>
+				<input type="checkbox" name="with" value="3"/><span class="for_checkbox">冰箱</span>
+				<input type="checkbox" name="with" value="4"/><span class="for_checkbox">洗衣机</span>
+				<input type="checkbox" name="with" value="5"/><span class="for_checkbox">热水器</span>
+				<input type="checkbox" name="with" value="6"/><span class="for_checkbox">宽带</span>
+				<input type="checkbox" name="with" value="7"/><span class="for_checkbox">厨具</span>
+			</p>
+			<p>
+				<input type="button" value="上传照片..."/>
+			</p>
+			<p>
+				<input type="button" id="bStep2_last" value="上一步"/>
+				<input type="button" id="bStep2_next" value="下一步"/>
+			</p>
+		</form>
 	</div>
 	<div id="step_3">
 

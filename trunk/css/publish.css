@@ -1,12 +1,19 @@
 body{
 	margin: 0;
 	padding: 0;
+}
+p{
+	height: 28px;
 }	
 label{
 	width: 86px;
 	float: left;
 	text-align: right;
 	padding-right: 14px;
+	line-height: 26px;
+}
+span{
+	float:left;
 	line-height: 24px;
 }
 div#up, div#nav, form{
@@ -63,4 +70,22 @@ div#map_content{
 	border: 1px solid #e0e0e0;
 	width: 700px;
 	height: 300px;
+}
+input[type="radio"], input[type="checkbox"]{
+	width:26px;
+	float:left;
+}
+span.for_radio{
+	margin-right: 30px;
+}
+span.for_checkbox{
+	margin-right: 12px;
+}
+input.x-short{
+	width:36px;
+}
+select{
+	height: 28px;
+	font-size: 16px;
+	padding: 4px;
 }
