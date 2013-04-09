@@ -32,5 +32,21 @@ function initialize() {
 		document.getElementById("step_1").style.display = "block";
 		document.getElementById("step_2").style.display = "none";
 	};
+	document.getElementById("bStep2_next").onclick = function(){
+		var aStep2 = document.getElementById("nav_2");
+		aStep2.className = aStep2.className.replace(" active", "");
+		document.getElementById("nav_3").className = "step active";
+
+		document.getElementById("step_2").style.display = "none";
+		document.getElementById("step_3").style.display = "block";
+	};
+	document.getElementById("bStep3_last").onclick = function(){
+		var aStep3 = document.getElementById("nav_3");
+		aStep3.className = aStep3.className.replace(" active", "");
+		document.getElementById("nav_2").className = "step active";
+
+		document.getElementById("step_2").style.display = "block";
+		document.getElementById("step_3").style.display = "none";
+	};
 }
 
