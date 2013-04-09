@@ -2,8 +2,9 @@ body{
 	margin: 0;
 	padding: 0;
 }
-p{
-	height: 28px;
+div.line_wrapper{
+	min-height: 28px;
+	margin: 16px 0;
 }	
 label{
 	width: 86px;
@@ -16,11 +17,17 @@ span{
 	float:left;
 	line-height: 24px;
 }
-div#up, div#nav, form{
+div.clear{
+	clear: both;
+}
+div#up, div#nav, div#c_info, form, div#footer{
 	margin: 0 auto;
 	width: 960px;
 	overflow: hidden;
 	display: block;
+}
+div#c_info{
+	height: 472px;
 }
 input{
 	height: 26px;
@@ -88,4 +95,55 @@ select{
 	height: 28px;
 	font-size: 16px;
 	padding: 4px;
+}
+div.photo{
+	background: url(../image/upload_bg.jpg) no-repeat 0 30px;
+	margin-right: 11px;
+	float: left;
+	width: 120px;
+	height: 150px;
+}
+div.img_container{
+	height: 90px;
+}
+div.photo a{
+	display: block;
+	line-height: 30px;
+	text-decoration: underline;
+	color: blue;
+}
+div.photo select{
+	width: 120px;
+	font-size: 15px;
+	height: 26px;
+}
+div#agreement{
+	padding-left: 100px;
+	margin-top: 10px;
+	height: 18px;
+	font-size: 14px;
+	color: #666;
+	line-height: 26px;
+}
+label#l_agree{
+	width: auto;
+	padding: 0;
+}
+input#t_verify{
+	float:left;
+	margin-right: 10px;
+}
+img#img_verify{
+	height: 26px;
+	float: left;
+	margin-right: 10px;
+	border: 1px solid #e0e0e0;
+}
+a#a_verify{
+	line-height: 26px;
+}
+div#footer{
+	color: #7a77c8;
+	font-size: 12px;
+	text-align: center;
 }
