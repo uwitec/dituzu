@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/publish.css" />
 	<link rel="icon" href="../image/favicon.ico" type="image/ico">
 	<link rel="shortcut icon" href="../image/favicon.ico">
-	<script type="text/javascript" src="../js/amap-v1.1-13.4.1.js"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.1&key=778049044743"></script>
 	<script type="text/javascript" src="../js/publish.js"></script>
 </head>
 <body onload="initialize()">
@@ -37,7 +37,13 @@
 					<input type="text" class="short" name="area"/>区
 					<input type="text" name="street"/>
 				</div>
-				<div id="map_content"></div>
+				<div id="map_content">
+					<div id="position">
+						X:<input type="text" name="x" id="map_x"/>
+						Y:<input type="text" name="y" id="map_y"/> 
+					</div>
+					<div class="clear"></div>
+				</div>
 				<div class="line_wrapper">
 					<input type="button" id="bStep1_next" value="下一步"/>
 				</div>

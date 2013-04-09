@@ -78,6 +78,17 @@ div#map_content{
 	width: 700px;
 	height: 300px;
 }
+div#position{
+	position: absolute;
+	z-index: 999;
+	right: 10px;
+	top: 3px;
+	opacity: 0.7;
+}
+div#position input{
+	border: 0;
+	width: 108px;
+}
 input[type="radio"], input[type="checkbox"]{
 	width:26px;
 	float:left;

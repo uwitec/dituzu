@@ -1,4 +1,5 @@
 var mapObj = null;
+var geo = null;
 function initialize() {
 	document.getElementById("step_2").style.display = "none";
 	document.getElementById("step_3").style.display = "none";
@@ -7,13 +8,30 @@ function initialize() {
 	var point = new AMap.LngLat(116.404, 39.915);
 	mapObj.setCenter(point);
 
+	var GeocoderOption = {
+		range: 3000,
+		crossnum: 2,
+		roadnum: 3,
+		poinum: 2
+	};
+	geo = new AMap.Geocoder(GeocoderOption);
+	
 	mapObj.plugin(["AMap.ToolBar"], function(){
 		tool = new AMap.ToolBar({
 			direction:true,
 			ruler:true,
-			autoPosition:false
+			autoPosition:true
 		});
 		mapObj.addControl(tool);
+	});
+	var centerPoint = mapObj.getCenter();
+	geo.regeocode(centerPoint, function(data){
+		alert(data.info);
+	});
+
+	mapObj.bind(mapObj,"click",function(e){
+		document.getElementById("map_x").value = e.lnglat.lng; 
+		document.getElementById("map_y").value = e.lnglat.lat;  
 	});
 
 	document.getElementById("bStep1_next").onclick = function(){
