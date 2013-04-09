@@ -81,7 +81,7 @@ function initialize() {
 		tool = new AMap.ToolBar({
 			direction:true,
 			ruler:true,
-			autoPosition:false
+			autoPosition:true
 		});
 		mapObj.addControl(tool);
 
