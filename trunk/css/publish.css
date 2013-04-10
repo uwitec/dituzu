@@ -20,13 +20,13 @@ span{
 div.clear{
 	clear: both;
 }
-div#up, div#nav, div#c_info, form, div#footer{
+div#up, div#nav, form, div#footer{
 	margin: 0 auto;
 	width: 960px;
 	overflow: hidden;
 	display: block;
 }
-div#c_info{
+form{
 	height: 472px;
 }
 input{
