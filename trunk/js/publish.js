@@ -19,41 +19,34 @@ function initialize() {
 		tool = new AMap.ToolBar({
 			direction:true,
 			ruler:true,
-			autoPosition:false
+			autoPosition:true
 		});
 		
-		mapObj.addControl(tool);
-		tool.doLocation();
-		var counter = 0;
-		function getLocationAfterAutoPosition(){
-			var obj = tool.getLocation();
-			if(counter > 5)
-				return;
-			if(!obj){
-				counter ++;
-				setTimeout(getLocationAfterAutoPosition, 1000);
-			}else{
-				document.getElementById("map_x").value = obj.center.lng; 
-				document.getElementById("map_y").value = obj.center.lat; 
-				geo.regeocode(obj.center, function(data){
-					if(data.status == "E0"){
-						var province, city, district;
-						province = data.list[0].province.name;
-						if(province == "北京市" || province == "上海市" 
-							|| province == "天津市" || province == "重庆市"){
-							city = province;
-						} else {
-							city = data.list[0].city.name;
-						}
-						district = data.list[0].district.name;
-						document.getElementById("_province").value = province;
-						document.getElementById("_city").value = city;
-						document.getElementById("_area").value = district;
+		function autoPositionHandler(e){
+			var pos = e.position.center;
+			document.getElementById("map_x").value = pos.lng; 
+			document.getElementById("map_y").value = pos.lat; 
+			geo.regeocode(pos, function(data){
+				if(data.status == "E0"){
+					var province, city, district;
+					province = data.list[0].province.name;
+					if(province == "北京市" || province == "上海市" 
+						|| province == "天津市" || province == "重庆市"){
+						city = province;
+					} else {
+						city = data.list[0].city.name;
 					}
-				});
-			}
+					district = data.list[0].district.name;
+					document.getElementById("_province").value = province;
+					document.getElementById("_city").value = city;
+					document.getElementById("_area").value = district;
+					mapObj.unbind(tool, "location", autoPositionHandler);
+				}
+			});
 		}
-		getLocationAfterAutoPosition();
+
+		mapObj.bind(tool, "location", autoPositionHandler);
+		mapObj.addControl(tool);
 	});
 
 	mapObj.bind(mapObj,"click",function(e){
