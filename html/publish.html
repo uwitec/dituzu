@@ -8,7 +8,6 @@
 	<link rel="icon" href="../image/favicon.ico" type="image/ico">
 	<link rel="shortcut icon" href="../image/favicon.ico">
 	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.1&key=de84066a8af110b41a95682b087c583d"></script>
-    <script type="text/javascript" src="../js/ajax.js"></script>
 	<script type="text/javascript" src="../js/publish.js"></script>
 </head>
 <body onload="initialize()">
@@ -28,14 +27,18 @@
 		<div id="step_1">
 			<div class="line_wrapper">
 				<label for="cn_label">小区名称</label>
-				<input type="text" id="cn_label" name="cell_name"/>
+				<input type="text" id="cn_label" name="cell_name" value="小区" class="unfilled"/>
+				<span id="cn_err" class="err_tip">含有非法字符</span>
+				<span id="cn_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
-				<label for="_province">地址</label>
+				<label for="_street">地址</label>
 				<input type="text" class="short" id="_province" name="province"/>省
 				<input type="text" class="short" id="_city" name="city"/>市
 				<input type="text" class="short" id="_district" name="district"/>区
-				<input type="text" name="street" id="_street" />
+				<input type="text" name="street" id="_street" value="街、道" class="unfilled" />
+				<span id="street_err" class="err_tip">含有非法字符</span>
+				<span id="street_succ" class="succ_tip"></span>
 			</div>
 			<div id="map_content">
 				<div id="position">
@@ -56,23 +59,29 @@
 				<input type="radio" name="rent_type" value="1"/>
 				<span class="for_radio">合租</span>
 			</div>
-			<div class="line_wrapper">
-				<label for="t_level">户型</label>
-				第<input class="x-short" type="text" name="level" id="t_level"/>层，
-				<input class="x-short" type="text" name="rooms"/>室
-				<input class="x-short" type="text" name="halls">厅
-				<input class="x-short" type="text" name="toilets">卫，
-				<input class="short" type="text" name="area" id="t_area"/>㎡
+			<div class="line_wrapper" id="house_ref">
+				<label for="_level">户型</label>
+				第<input class="x-short" type="text" name="level" id="_level"/>层，
+				<input class="x-short" type="text" name="rooms" id="_rooms"/>室
+				<input class="x-short" type="text" name="halls" id="_halls">厅
+				<input class="x-short" type="text" name="toilets" id="_toilets">卫，
+				<input class="short" type="text" name="area" id="_area"/>㎡
+				<span id="num_err" class="err_tip">必须是整数</span>
+				<span id="num_fill" class="err_tip">请完善信息</span>
+				<span id="num_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
-				<label for="t_price">租金</label>
-				<input class="short" type="text" name="price" id="t_price" />元/月，
+				<label for="_price">租金</label>
+				<input class="short" type="text" name="price" id="_price" />元/月，
 				<select name="payment">
 					<option value="0">押一付三</option>
 					<option value="1">年付</option>
 					<option value="2">半年付</option>
 					<option value="3">可面议</option>
 				</select>
+				<span id="price_err" class="err_tip">必须是整数</span>
+				<span id="price_fill" class="err_tip">请填写租金</span>
+				<span id="price_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
 				<label for="">房屋情况</label>
@@ -130,15 +139,21 @@
 		<div id="step_3">
 			<div class="line_wrapper">
 				<label for="t_call">您的称呼</label>
-				<input type="text" name="call" id="t_call"/>
+				<input type="text" name="call" id="t_call" value="请输入您的称呼" class="unfilled"/>
+				<span id="call_err" class="err_tip">不符合标准</span>
+				<span id="call_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
 				<label for="t_phone">联系电话</label>
-				<input type="text" name="phone" id="t_phone"/>
+				<input type="text" name="phone" id="t_phone" value="请输入您的联系方式" class="unfilled"/>
+				<span id="phone_err" class="err_tip">该联系方式不合法</span>
+				<span id="phone_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
 				<label for="t_email">电子邮件</label>
-				<input type="text" name="email" id="t_email"/>
+				<input type="text" name="email" id="t_email" value="请输入您的电子邮件" class="unfilled"/>
+				<span id="email_err" class="err_tip">该邮箱格式不合法</span>
+				<span id="email_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
 				<label for="t_verify">验证码</label>
@@ -150,6 +165,8 @@
 				<input type="checkbox" name="is_agree" id="t_agree"/>
 				<label id="l_agree" for="t_agree">我已阅读并接受</label>
 				<a href="#">《悦租客使用协议》</a>
+				<span id="agree_err" class="err_tip">请同意我们的服务条款</span>
+				<span id="agree_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
 				<input type="button" id="bStep3_last" value="上一步"/>
