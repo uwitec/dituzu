@@ -36,6 +36,9 @@ input{
 	margin: 0;
 	padding: 0;
 }
+input.unfilled{
+	color: #808080;
+}
 div#logo img{
 	width:72px;
 	height:72px;
@@ -92,6 +95,13 @@ div#position input{
 input[type="radio"], input[type="checkbox"]{
 	width:26px;
 	float:left;
+}
+span.err_tip{
+	display: none;
+	float: none;
+	color: #da1111;
+	font: 14px/1.5 tahoma,arial,Hiragino Sans GB,宋体b8b\4f53;
+	margin-left: 20px;
 }
 span.for_radio{
 	margin-right: 30px;

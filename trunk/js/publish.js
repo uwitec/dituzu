@@ -4,31 +4,31 @@ var geo = null;
 String.prototype.trim = function() {  
 	var m = this.match(/^\s*(\S+(\s+\S+)*)\s*/);  
 	return (m == null) ? "" : m[1];  
-}  
+};  
   
 String.prototype.isMobile = function() {  
 	return (/^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})/.test(this.trim()));  
-}  
+};  
   
 String.prototype.isTel = function(){   
 	return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?/.test(this.trim()));  
-}  
-String.prototype.isValidEmail = function{
+}; 
+String.prototype.isValidEmail = function(){
     var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
     return reg.test(this.trim());
-}
+};
 String.prototype.isInteger = function(){
 	var reg = /^\d+$/;
 	return reg.test(this.trim());
-}
+};
 String.prototype.isFloat = function(){
 	var reg = /^\d+(\.\d+)?$/;
 	return reg.test(this.trim());
-}
+};
 String.prototype.hasValidChar = function(){
-	var reg = /select|update|delete|truncate|join|union|exec|insert|drop|count|’|"|;|>|<|%/i/;
+	var reg = /select|update|delete|grant|join|union|exec|insert|drop|or|'|"|;|=|>|<|%/;
 	return reg.test(this);
-}
+};
 
 function PublishInfo(){
 	this.cellName = "";
@@ -87,11 +87,11 @@ function PublishInfo(){
     }
     this.update2 = function(){
     	this.rentType = document.getElementsByName("rent_type")[0].checked ? 0 : 1;
-    	this.floor = document.getElementsByName("level")[0].value;
-    	this.rooms = document.getElementsByName("rooms")[0].value;
-    	this.halls = document.getElementsByName("halls")[0].value;
-    	this.toilets = document.getElementsByName("toilets")[0].value;
-    	this.area = document.getElementById("t_area").value;
+    	this.floor = document.getElementById("_level").value;
+    	this.rooms = document.getElementById("_rooms").value;
+    	this.halls = document.getElementById("_halls").value;
+    	this.toilets = document.getElementById("_toilets").value;
+    	this.area = document.getElementById("_area").value;
     	this.price = document.getElementById("t_price").value;
     	var paySelect = document.getElementsByName("payment")[0];
     	this.payment = paySelect.options[paySelect.selectedIndex].value;
@@ -191,7 +191,79 @@ function initialize() {
 		document.getElementById("map_x").value = e.lnglat.lng; 
 		document.getElementById("map_y").value = e.lnglat.lat;  
 	});
+	document.getElementById("cn_label").onfocus = function(){
+		if(this.value == "小区"){
+			this.className = "";
+			this.value = "";
+			document.getElementById("cn_err").style.display = "none";
+		}
+	};
+	document.getElementById("cn_label").onblur = function(){
+		if(this.value == ""){
+			this.className = "unfilled";
+			this.value = "小区";
+			var node = document.getElementById("cn_err");
+			node.innerHTML = "忘了填写小区名称！";
+			node.style.display = "inline";
+			return;
+		}
+		if(this.value.hasValidChar()){
+			var node = document.getElementById("cn_err");
+			node.innerHTML = "含有非法字符";
+			node.style.display = "inline";
+		}
+	};
+	document.getElementById("_street").onfocus = function(){
+		if(this.value == "街、道"){
+			this.className = "";
+			this.value = "";
+			document.getElementById("street_err").style.display = "none";
+		}
+	};
+	document.getElementById("_street").onblur = function(){
+		if(this.value == ""){
+			this.className = "unfilled";
+			this.value = "街、道";
+			var node = document.getElementById("street_err");
+			node.innerHTML = "忘了填写街道信息";
+			node.style.display = "inline";
+			return;
+		}
+		if(this.value.hasValidChar()){
+			var node = document.getElementById("street_err");
+			node.innerHTML = "含有非法字符";
+			node.style.display = "inline";
+		}
+	};
+	document.getElementById("_level").onblur = function(){
 
+	};
+	var nodes = document.getElementById("house_ref").getElementsByTagName("input");
+	for(var i = 0; i < nodes.length; i++){
+		nodes[i].onblur = function(){
+			if(this.value == ""){
+				return;
+			}
+			if(!this.value.isInteger()){
+				document.getElementById("num_err").style.display = "inline";
+			} else {
+				document.getElementById("num_err").style.display = "none";
+			}
+		}
+	}
+	document.getElementById("_price").onblur = function(){
+		if(this.value == ""){
+			document.getElementById("price_fill").style.display = "inline";
+			return;
+		} else {
+			document.getElementById("price_fill").style.display = "none";
+		}
+		if(!this.value.isInteger()){
+			document.getElementById("price_err").style.display = "inline";
+		} else {
+			document.getElementById("price_err").style.display = "none";
+		}
+	}
 	document.getElementById("bStep1_next").onclick = function(){
 		var aStep1 = document.getElementById("nav_1");
 		aStep1.className = aStep1.className.replace(" active", "");
