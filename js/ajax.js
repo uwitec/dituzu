@@ -35,6 +35,8 @@ function request(paramObj){
         var paramStr = "";
         var counter = 0;
         for(var name in paramObj.data){
+            if(typeof paramObj.data[name] === "function")
+                continue;
             if(counter != 0)
                 paramStr += "&";
             paramStr += name + "=" + paramObj.data[name];
@@ -47,10 +49,18 @@ function request(paramObj){
     }
 }
 
+function User(){
+    this.name = "zp";
+    this.pass = "111111";
+    this.foo = function(){
+        alert("here");
+    }
+}
+
 request({
     url:"b.txt",
     method:"POST",
-    data:{name:"zp", lat:12.304},
+    data:new User(),
     success:function(data){
         alert("success");
     },

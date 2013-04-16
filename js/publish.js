@@ -1,5 +1,140 @@
 var mapObj = null;
 var geo = null;
+
+String.prototype.trim = function() {  
+	var m = this.match(/^\s*(\S+(\s+\S+)*)\s*/);  
+	return (m == null) ? "" : m[1];  
+}  
+  
+String.prototype.isMobile = function() {  
+	return (/^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})/.test(this.trim()));  
+}  
+  
+String.prototype.isTel = function(){   
+	return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?/.test(this.trim()));  
+}  
+String.prototype.isValidEmail = function{
+    var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+    return reg.test(this.trim());
+}
+String.prototype.isInteger = function(){
+	var reg = /^\d+$/;
+	return reg.test(this.trim());
+}
+String.prototype.isFloat = function(){
+	var reg = /^\d+(\.\d+)?$/;
+	return reg.test(this.trim());
+}
+String.prototype.hasValidChar = function(){
+	var reg = /select|update|delete|truncate|join|union|exec|insert|drop|count|’|"|;|>|<|%/i/;
+	return reg.test(this);
+}
+
+function PublishInfo(){
+	this.cellName = "";
+	this.province = "";
+	this.city = "";
+	this.district = "";
+	this.street = "";
+	this.lng = 0.0;
+	this.lat = 0.0;
+	this.rentType = 0;
+	this.floor = 0;
+	this.rooms = 0;
+	this.halls = 0;
+	this.toilets = 0;
+	this.area = 0;
+	this.price = 0;
+	this.payment = 0;
+	this.houseType = 0;
+	this.decoration = 0;
+	this.direction = 0;
+	this.with = 0;
+	this.owner = "";
+	this.phone = "";
+	this.email = "";
+	this.verifyCode = "";
+	this.isAgree = false;
+
+	this.update1 = function(){
+		this.cellName = document.getElementById("cell_name").value;
+    	this.province = document.getElementById("_province").value;
+    	this.city = document.getElementById("_city").value;
+    	this.district = document.getElementById("_district").value;
+    	this.street = document.getElementById("_street").value;
+    	this.lng = document.getElementById("map_x").value;
+    	this.lat = document.getElementById("map_y").value;
+    }
+    this.checkValid1 = function(){
+    	ret = true;
+    	if(this.cellName.hasValidChar()){
+    		alert("cellName has valid char");
+    		ret = false;
+    	}
+    	if(this.street.hasValidChar()){
+    		alert("street has valid char");
+    		ret = false;
+    	}
+    	if(!this.lng.isFloat()){
+    		alert("lng is not float");
+    		ret = false;
+    	}
+    	if(!this.lat.isFloat()){
+    		alert("lat is not float");
+    		ret = false;
+    	}
+    	return false;
+    }
+    this.update2 = function(){
+    	this.rentType = document.getElementsByName("rent_type")[0].checked ? 0 : 1;
+    	this.floor = document.getElementsByName("level")[0].value;
+    	this.rooms = document.getElementsByName("rooms")[0].value;
+    	this.halls = document.getElementsByName("halls")[0].value;
+    	this.toilets = document.getElementsByName("toilets")[0].value;
+    	this.area = document.getElementById("t_area").value;
+    	this.price = document.getElementById("t_price").value;
+    	var paySelect = document.getElementsByName("payment")[0];
+    	this.payment = paySelect.options[paySelect.selectedIndex].value;
+    	var houseSelect = document.getElementsByName("house_type")[0];
+    	this.houseType = houseSelect.options[houseSelect.selectedIndex].value;
+    	var decoSelect = document.getElementsByName("decoration")[0];
+    	this.decoration = decoSelect.options[decoSelect.selectedIndex].value;
+    	var dirtSelect = document.getElementsByName("direction")[0];
+    	this.direction = dirtSelect.options[dirtSelect.selectedIndex].value;
+    	var withCB = document.getElementsByName("with");
+    	this.with = 0;
+    	for(var i = 0; i < withCB.length; i++) if(withCB[i].checked){
+    		this.with += withCB[i].value;
+    	}
+    }
+    this.update3 = function(){
+    	this.owner = document.getElementById("t_call").value;
+    	this.phone = document.getElementById("t_phone").value;
+    	this.email = document.getElementById("t_email").value;
+    	this.verifyCode = document.getElementById("t_verify").value;
+    	this.isAgree = document.getElementById("t_agree").checked;
+	}
+	this.checkValid3 = function(){
+		var ret = true;
+		if(this.owner.hasValidChar()){
+			alert("owner name has valid char");
+			ret = false;
+		}
+		if(!this.phone.isTel && !this.phone.isMobile){
+			alert("phone number is not valid");
+			ret = false;
+		}
+		if(!this.email.isValidEmail()){
+			alert("email is not valid");
+			ret = false;
+		}
+		if(!this.isAgree){
+			alert("you did not agree");
+			ret = false;
+		}
+		return ret;
+	}
+}
 function initialize() {
 	document.getElementById("step_2").style.display = "none";
 	document.getElementById("step_3").style.display = "none";
@@ -39,7 +174,7 @@ function initialize() {
 					district = data.list[0].district.name;
 					document.getElementById("_province").value = province;
 					document.getElementById("_city").value = city;
-					document.getElementById("_area").value = district;
+					document.getElementById("_district").value = district;
 					mapObj.unbind(tool, "location", autoPositionHandler);
 				}
 			});
@@ -86,5 +221,8 @@ function initialize() {
 		document.getElementById("step_2").style.display = "block";
 		document.getElementById("step_3").style.display = "none";
 	};
+    document.getElementById("bStep3_finish").onclick = function(){
+    	alert("here");
+    }
 }
 
