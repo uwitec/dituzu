@@ -107,6 +107,9 @@ function PublishInfo(){
     		this.with += withCB[i].value;
     	}
     }
+    this.checkValid2 = function(){
+    	
+    }
     this.update3 = function(){
     	this.owner = document.getElementById("t_call").value;
     	this.phone = document.getElementById("t_phone").value;
