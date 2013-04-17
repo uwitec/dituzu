@@ -55,14 +55,14 @@ CREATE TABLE `brief_info` (
 
 DROP TABLE IF EXISTS `detail_info`;
 CREATE TABLE `detail_info` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `toilets` tinyint(3) unsigned NOT NULL,
   `province` char(20) CHARACTER SET latin1 NOT NULL,
   `city` char(20) CHARACTER SET latin1 NOT NULL,
   `district` char(20) CHARACTER SET latin1 NOT NULL,
   `rent_type` tinyint(1) NOT NULL,
   `cell_name` varchar(40) CHARACTER SET latin1 NOT NULL,
-  `with` tinyint(3) unsigned NOT NULL,
+  `devices` tinyint(3) unsigned NOT NULL,
   `floor` tinyint(3) unsigned NOT NULL,
   `payment` tinyint(3) unsigned NOT NULL,
   `owner_name` char(20) CHARACTER SET latin1 NOT NULL,
