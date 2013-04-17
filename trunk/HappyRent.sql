@@ -35,7 +35,7 @@ CREATE TABLE `brief_info` (
   `price` mediumint(8) unsigned NOT NULL,
   `rooms` tinyint(3) unsigned NOT NULL,
   `halls` tinyint(3) unsigned NOT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `level` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Index_2` (`lng`,`lat`)
@@ -55,20 +55,20 @@ CREATE TABLE `brief_info` (
 
 DROP TABLE IF EXISTS `detail_info`;
 CREATE TABLE `detail_info` (
-  `id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `toilets` tinyint(3) unsigned NOT NULL,
-  `province` char(20) CHARACTER SET latin1 NOT NULL,
-  `city` char(20) CHARACTER SET latin1 NOT NULL,
-  `district` char(20) CHARACTER SET latin1 NOT NULL,
+  `province` char(20) NOT NULL,
+  `city` char(20) NOT NULL,
+  `district` char(20) NOT NULL,
   `rent_type` tinyint(1) NOT NULL,
-  `cell_name` varchar(40) CHARACTER SET latin1 NOT NULL,
+  `cell_name` varchar(40) NOT NULL,
   `devices` tinyint(3) unsigned NOT NULL,
   `floor` tinyint(3) unsigned NOT NULL,
   `payment` tinyint(3) unsigned NOT NULL,
-  `owner_name` char(20) CHARACTER SET latin1 NOT NULL,
+  `owner_name` char(20) NOT NULL,
   `owner_phone` char(11) CHARACTER SET latin1 NOT NULL,
   `owner_email` varchar(45) CHARACTER SET latin1 NOT NULL,
-  `delete_code` char(32) CHARACTER SET latin1 NOT NULL,
+  `street` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_detail_info_1` FOREIGN KEY (`id`) REFERENCES `brief_info` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
