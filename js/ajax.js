@@ -49,22 +49,3 @@ function request(paramObj){
     }
 }
 
-function User(){
-    this.name = "zp";
-    this.pass = "111111";
-    this.foo = function(){
-        alert("here");
-    }
-}
-
-request({
-    url:"b.txt",
-    method:"POST",
-    data:new User(),
-    success:function(data){
-        alert("success");
-    },
-    error:function(){
-        alert("error");
-    }
-});

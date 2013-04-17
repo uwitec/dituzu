@@ -363,6 +363,17 @@ function initialize() {
 			return false;
 		formData.update3();
     	alert("here");
+    	request({
+    		url:"../php/publish.php",
+    		method:"POST",
+    		data:formData,
+    		success:function(data){
+        		alert(data);
+    		},
+    		error:function(){
+        		alert("error");
+    		}
+});
     }
 }
 
