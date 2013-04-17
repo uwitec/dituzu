@@ -80,7 +80,6 @@
 					<option value="3">可面议</option>
 				</select>
 				<span id="price_err" class="err_tip">必须是整数</span>
-				<span id="price_fill" class="err_tip">请填写租金</span>
 				<span id="price_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
@@ -139,20 +138,20 @@
 		<div id="step_3">
 			<div class="line_wrapper">
 				<label for="t_call">您的称呼</label>
-				<input type="text" name="call" id="t_call" value="请输入您的称呼" class="unfilled"/>
-				<span id="call_err" class="err_tip">不符合标准</span>
+				<input type="text" name="call" id="t_call"/>
+				<span id="call_err" class="err_tip"></span>
 				<span id="call_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
 				<label for="t_phone">联系电话</label>
-				<input type="text" name="phone" id="t_phone" value="请输入您的联系方式" class="unfilled"/>
-				<span id="phone_err" class="err_tip">该联系方式不合法</span>
+				<input type="text" name="phone" id="t_phone"/>
+				<span id="phone_err" class="err_tip"></span>
 				<span id="phone_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
 				<label for="t_email">电子邮件</label>
-				<input type="text" name="email" id="t_email" value="请输入您的电子邮件" class="unfilled"/>
-				<span id="email_err" class="err_tip">该邮箱格式不合法</span>
+				<input type="text" name="email" id="t_email"/>
+				<span id="email_err" class="err_tip"></span>
 				<span id="email_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
@@ -160,12 +159,13 @@
 				<input class="short" type="text" name="verify_code" id="t_verify"/>
 				<img id="img_verify" src="../image/verify.jpg"/>
 				<a id="a_verify" href="#">看不清?</a>
+				<span id="verify_err" class="err_tip"></span>
 			</div>
 			<div id="agreement">
 				<input type="checkbox" name="is_agree" id="t_agree"/>
 				<label id="l_agree" for="t_agree">我已阅读并接受</label>
 				<a href="#">《悦租客使用协议》</a>
-				<span id="agree_err" class="err_tip">请同意我们的服务条款</span>
+				<span id="agree_err" class="err_tip">您未接受我们的服务条款</span>
 				<span id="agree_succ" class="succ_tip"></span>
 			</div>
 			<div class="line_wrapper">
