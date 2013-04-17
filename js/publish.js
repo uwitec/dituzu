@@ -57,7 +57,7 @@ function PublishInfo(){
 	this.isAgree = false;
 
 	this.update1 = function(){
-		this.cellName = document.getElementById("cell_name").value;
+		this.cellName = document.getElementById("cn_label").value;
     	this.province = document.getElementById("_province").value;
     	this.city = document.getElementById("_city").value;
     	this.district = document.getElementById("_district").value;
@@ -66,24 +66,10 @@ function PublishInfo(){
     	this.lat = document.getElementById("map_y").value;
     }
     this.checkValid1 = function(){
-    	ret = true;
-    	if(this.cellName.hasValidChar()){
-    		alert("cellName has valid char");
-    		ret = false;
-    	}
-    	if(this.street.hasValidChar()){
-    		alert("street has valid char");
-    		ret = false;
-    	}
-    	if(!this.lng.isFloat()){
-    		alert("lng is not float");
-    		ret = false;
-    	}
-    	if(!this.lat.isFloat()){
-    		alert("lat is not float");
-    		ret = false;
-    	}
-    	return false;
+    	var ret = true;
+    	ret = document.getElementById("cn_label").onblur() && ret;
+    	ret = document.getElementById("_street").onblur() && ret;
+    	return ret;
     }
     this.update2 = function(){
     	this.rentType = document.getElementsByName("rent_type")[0].checked ? 0 : 1;
@@ -92,7 +78,7 @@ function PublishInfo(){
     	this.halls = document.getElementById("_halls").value;
     	this.toilets = document.getElementById("_toilets").value;
     	this.area = document.getElementById("_area").value;
-    	this.price = document.getElementById("t_price").value;
+    	this.price = document.getElementById("_price").value;
     	var paySelect = document.getElementsByName("payment")[0];
     	this.payment = paySelect.options[paySelect.selectedIndex].value;
     	var houseSelect = document.getElementsByName("house_type")[0];
@@ -104,11 +90,14 @@ function PublishInfo(){
     	var withCB = document.getElementsByName("with");
     	this.with = 0;
     	for(var i = 0; i < withCB.length; i++) if(withCB[i].checked){
-    		this.with += withCB[i].value;
+    		this.with += parseInt(withCB[i].value);
     	}
     }
     this.checkValid2 = function(){
-    	
+    	var ret = true;
+    	ret = document.getElementById("house_ref").getElementsByTagName("input")[0].onblur() && ret;
+    	ret = document.getElementById("_price").onblur() && ret;
+    	return ret;
     }
     this.update3 = function(){
     	this.owner = document.getElementById("t_call").value;
@@ -119,25 +108,15 @@ function PublishInfo(){
 	}
 	this.checkValid3 = function(){
 		var ret = true;
-		if(this.owner.hasValidChar()){
-			alert("owner name has valid char");
-			ret = false;
-		}
-		if(!this.phone.isTel && !this.phone.isMobile){
-			alert("phone number is not valid");
-			ret = false;
-		}
-		if(!this.email.isValidEmail()){
-			alert("email is not valid");
-			ret = false;
-		}
-		if(!this.isAgree){
-			alert("you did not agree");
-			ret = false;
-		}
+		ret = document.getElementById("t_call").onblur() && ret;
+		ret = document.getElementById("t_phone").onblur() && ret;
+		ret = document.getElementById("t_email").onblur() && ret;
+		ret = document.getElementById("t_verify").onblur() && ret;
+		ret = document.getElementById("t_agree").onblur() && ret;
 		return ret;
 	}
 }
+var formData = new PublishInfo();
 function initialize() {
 	document.getElementById("step_2").style.display = "none";
 	document.getElementById("step_3").style.display = "none";
@@ -199,19 +178,20 @@ function initialize() {
 		}
 	};
 	document.getElementById("cn_label").onblur = function(){
-		if(this.value == ""){
+		var node = document.getElementById("cn_err");
+		if(this.value == "" || this.value == "小区"){
 			this.className = "unfilled";
 			this.value = "小区";
-			var node = document.getElementById("cn_err");
 			node.innerHTML = "忘了填写小区名称！";
 			node.style.display = "inline";
-			return;
+			return false;
 		}
 		if(this.value.hasValidChar()){
-			var node = document.getElementById("cn_err");
 			node.innerHTML = "含有非法字符";
 			node.style.display = "inline";
+			return false;
 		}
+		return true;
 	};
 	document.getElementById("_street").onfocus = function(){
 		if(this.value == "街、道"){
@@ -221,50 +201,129 @@ function initialize() {
 		}
 	};
 	document.getElementById("_street").onblur = function(){
-		if(this.value == ""){
+		var node = document.getElementById("street_err");
+		if(this.value == "" || this.value == "街、道"){
 			this.className = "unfilled";
 			this.value = "街、道";
-			var node = document.getElementById("street_err");
 			node.innerHTML = "忘了填写街道信息";
 			node.style.display = "inline";
-			return;
+			return false;
 		}
 		if(this.value.hasValidChar()){
-			var node = document.getElementById("street_err");
 			node.innerHTML = "含有非法字符";
 			node.style.display = "inline";
+			return false;
 		}
-	};
-	document.getElementById("_level").onblur = function(){
-
+		return true;
 	};
 	var nodes = document.getElementById("house_ref").getElementsByTagName("input");
 	for(var i = 0; i < nodes.length; i++){
 		nodes[i].onblur = function(){
-			if(this.value == ""){
-				return;
+			var tip = document.getElementById("num_err");
+			for(var k = 0; k < nodes.length; k++){
+				if(nodes[k].value == "" || !nodes[k].value.isInteger()){
+					tip.innerHTML = "楼层、室、厅、卫和面积不能为空且必须是整数";
+					tip.style.display = "inline";
+					return false;
+				}
 			}
-			if(!this.value.isInteger()){
-				document.getElementById("num_err").style.display = "inline";
-			} else {
-				document.getElementById("num_err").style.display = "none";
-			}
-		}
+			tip.style.display = "none";
+			return true;
+		};
 	}
 	document.getElementById("_price").onblur = function(){
+		var node = document.getElementById("price_err");
 		if(this.value == ""){
-			document.getElementById("price_fill").style.display = "inline";
-			return;
-		} else {
-			document.getElementById("price_fill").style.display = "none";
+			node.innerHTML = "请填写租金";
+			node.style.display = "inline";
+			return false;
 		}
 		if(!this.value.isInteger()){
-			document.getElementById("price_err").style.display = "inline";
-		} else {
-			document.getElementById("price_err").style.display = "none";
+			node.innerHTML = "租金必须是整数";
+			node.style.display = "inline";
+			return false;
 		}
-	}
+		node.style.display = "none";
+		return true;
+	};
+	document.getElementById("t_call").onblur = function(){
+		var node = document.getElementById("call_err");
+		if(this.value == ""){
+			node.innerHTML = "请填写您的称呼";
+			node.style.display = "inline";
+			return false;
+		}
+		if(this.value.hasValidChar()){
+			node.innerHTML = "含有非法字符";
+			node.style.display = "inline";
+			return false;
+		}
+		node.style.display = "none";
+		return true;
+	};
+	document.getElementById("t_phone").onblur = function(){
+		var node = document.getElementById("phone_err");
+		if(this.value == ""){
+			node.innerHTML = "请填写您的联系方式";
+			node.style.display = "inline";
+			return false;
+		}
+		if(this.value.hasValidChar()){
+			node.innerHTML = "含有非法字符";
+			node.style.display = "inline";
+			return false;
+		}
+		if(!this.value.isTel() && !this.value.isMobile()){
+			node.innerHTML = "联系方式格式不合法";
+			node.style.display = "inline";
+			return false;
+		}
+		node.style.display = "none";
+		return true;
+	};
+	document.getElementById("t_email").onblur = function(){
+		var node = document.getElementById("email_err");
+		if(this.value == ""){
+			node.innerHTML = "请填写您的电子邮件";
+			node.style.display = "inline";
+			return false;
+		}
+		if(this.value.hasValidChar()){
+			node.innerHTML = "含有非法字符";
+			node.style.display = "inline";
+			return false;
+		}
+		if(!this.value.isValidEmail()){
+			node.innerHTML = "邮箱格式不合格";
+			node.style.display = "inline";
+			return false;
+		}
+		node.style.display = "none";
+		return true;
+	};
+	document.getElementById("t_verify").onblur = function(){
+		var node = document.getElementById("verify_err");
+		if(this.value == ""){
+			node.innerHTML = "请填写验证码";
+			node.style.display = "inline";
+			return false;
+		}
+		node.style.display = "none";
+		return true;
+	};
+	document.getElementById("t_agree").onblur = function(){
+		var node = document.getElementById("agree_err");
+		if(!this.checked){
+			node.style.display = "inline";
+			return false;
+		}
+		node.style.display = "none";
+		return true;
+	};
 	document.getElementById("bStep1_next").onclick = function(){
+		if(!formData.checkValid1())
+			return false;
+		formData.update1();
 		var aStep1 = document.getElementById("nav_1");
 		aStep1.className = aStep1.className.replace(" active", "");
 		document.getElementById("nav_2").className = "step active";
@@ -281,6 +340,9 @@ function initialize() {
 		document.getElementById("step_2").style.display = "none";
 	};
 	document.getElementById("bStep2_next").onclick = function(){
+		if(!formData.checkValid2())
+			return false;
+		formData.update2();
 		var aStep2 = document.getElementById("nav_2");
 		aStep2.className = aStep2.className.replace(" active", "");
 		document.getElementById("nav_3").className = "step active";
@@ -297,6 +359,9 @@ function initialize() {
 		document.getElementById("step_3").style.display = "none";
 	};
     document.getElementById("bStep3_finish").onclick = function(){
+    	if(!formData.checkValid3())
+			return false;
+		formData.update3();
     	alert("here");
     }
 }
