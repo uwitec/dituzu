@@ -1,70 +1,55 @@
 <?PHP
-echo "here";
 
+$expectParams = array("cellName", "province", "city", "distict", "street",
+    "lng", "lat", "rentType", "floor", "rooms", "halls", "toilets", "area", 
+    "price", "payment", "houseType", "decoration", "direction","with", 
+    "owner", "phone", "email", "verifyCode", "level"
+);
+$response = array();
 
-$cellName = $_POST["cellName"];
-$province = $_POST["province"];
-$city = $_POST["city"];
-$district = $_POST["district"];
-$street = $_POST["street"];
-$lng = $_POST["lng"];
-$lat = $_POST["lat"];
-$rentType = $_POST["rentType"];
-$floor = $_POST["floor"];
-$rooms = $_POST["rooms"];
-$halls = $_POST["halls"];
-$toilets = $_POST["toilets"];
-$area = $_POST["area"];
-$price = $_POST["price"];
-$payment = $_POST["payment"];
-$houseType = $_POST["houseType"];
-$decoration = $_POST["decoration"];
-$direction = $_POST["direction"];
-$devices = $_POST["with"];
-$owner = $_POST["owner"];
-$phone = $_POST["phone"];
-$email = $_POST["email"];
-$verifyCode = $_POST["verifyCode"];
+foreach($expectParams as $param){
+    if(!isset($_POST[$param])){
+        $response['responsecode'] = -1;
+        $response['message'] = "Hadn't send parameter $param";
+        echo json_encode($response);
+        responseurn;
+    }
+    $$param = $_POST[$param];
+}
 $imgSrc = "test";
-$level = 5;
-
-$ret = array();
 
 $con = mysql_connect("localhost", "root", "111111")
     or die("Could not connect:" . mysql_error());
 mysql_select_db("happy_rent", $con);
 mysql_query("set names utf8");
-$sql1 = "INSERT INTO brief_info(lng, lat, imgSrc, area, price, rooms, halls, level) ".
-	"VALUES($lng, $lat, '$imgSrc', $area, $price, $rooms, $halls, $level)";
-mysql_query($sql1);
-if(mysql_error()){
-	$ret["ret"] = 1;
-	$ret["message"] = "Error occured when insert first record";
-	mysql_close($con);
-	echo json_encode($ret);
-	exit(0);
-}
+// 这里用事务比较好
+
+$insertBriefInfo = "INSERT INTO brief_info(lng, lat, imgSrc, area, price, rooms, halls, level) ".
+    "VALUES($lng, $lat, '$imgSrc', $area, $price, $rooms, $halls, $level)";
+$resOfInsertBriefInfo = mysql_query($insertBriefInfo);
 $id = mysql_insert_id();
-$sql2 = "INSERT INTO detail_info(id, toilets, province, city, district, ".
-	"rent_type, cell_name, devices, floor, payment, owner_name, owner_phone, owner_email) ".
-	"VALUES($id, $toilets, '$province', '$city', '$district', $rentType, '$cellName', $devices, ".
-	"$floor, $payment, '$owner', '$phone', '$email')";
-mysql_query($sql2);
+$insertDetailInfo = "INSERT INTO detail_info(id, toilets, province, city, district, ".
+    "rent_type, cell_name, devices, floor, payment, owner_name, owner_phone, owner_email) ".
+    "VALUES($id, $toilets, '$province', '$city', '$district', $rentType, '$cellName', $devices, ".
+    "$floor, $payment, '$owner', '$phone', '$email')";
+$resOfInsertDetailInfo = mysql_query($insertDetailInfo);
+
 if(mysql_error()){
-	mysql_query("delet from brief_info where id = $id");
-	$ret["ret"] = 2;
-	$ret["message"] = "Error occured when insert seconed record";
+    mysql_query("delet from brief_info where id = $id");
+    $response["response"] = 2;
+    $response["message"] = "Error occured when insert seconed record";
 } else {
-	$ret["ret"] = 0;
-	$ret["message"] = "OK";
+    $response["response"] = 0;
+    $response["message"] = "OK";
 }
 
+/*
 $result = mysql_query("SELECT * FROM detail_info where id = $id");
-
 while($row = mysql_fetch_array($result)){
-  echo $row['province'];
- }
+    echo $row['province'];
+}
+ */
 
 mysql_close($con);
-echo json_encode($ret);
+echo json_encode($response);
 ?>
