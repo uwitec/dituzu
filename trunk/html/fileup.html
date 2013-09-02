@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+	<title>file upload</title>
+</head>
+<body> 
+<h1>File API Demo</h1> 
+<p> 
+<!-- 用于文件上传的表单元素 --> 
+<form name="demoForm" id="demoForm" method="post" enctype="multipart/form-data" 
+action="javascript: uploadAndSubmit();"> 
+	<p>Upload File: <input type="file" name="file" /></p> 
+	<p><input type="submit" value="Submit" /></p> 
+</form> 
+<div>
+	Progessing (in Bytes): <span id="bytesRead"> </span> / <span id="bytesTotal"></span> 
+</div>
+<form method="POST" action="cgi-bin/hello.py" enctype="multipart/form-data">
+	<h3>Enter file to upload</h3>
+	<input type="file" name="upfile" />
+	<p><input type="submit" vale="Submit"></p>>
+</form>>
+<script type="text/javascript">
+	function uploadAndSubmit () {
+		var form =document.forms["demoForm"];
+		if(form["file"].files.length>0)
+		{
+			console.log("Start...")
+			var file=form["file"].files[0];
+			console.log("file's name is:"+file.name)
+			var reader=new FileReader();
+
+			reader.onloadstart=function(){
+				console.log("load start");
+				document.getElementById("bytesTotal").textContent=file.size;
+			};
+			reader.onprogress=function(p){
+				console.log("progress");
+				document.getElementById("bytesRead").textContent=p.load;
+			};
+			reader.onload=function(){
+				console.log("load complete");
+			}
+			reader.onloadend=function(){
+				if(reader.error){
+					console.log("reader.error");
+				}
+				else{
+					console.log(reader);
+					document.getElementById("bytesRead").textContent=file.size;
+					var xhr=new XMLHttpRequest();
+					url="cgi-bin/hello.py?value=1"
+					xhr.open("POST",url)
+					xhr.overrideMimeType("application/octet-stream")
+					xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded;charset=UTF-8;')
+					//xhr.sendAsBinary(reader.result)
+					xhr.send('file='+reader.result)
+					xhr.onreadystatechange=function(){
+						if(xhr.readyState==4){
+							if(xhr.status==200)
+							{
+								console.log("upload complete");
+								console.log("response: "+ xhr.responseText);
+							}
+						}
+					}
+				}
+			}
+			//reader.readAsBinaryString(file);
+			reader.readAsText(file);
+		}
+		else{
+			console.log("file choose error!")
+		}
+	}
+</script>
+</div> 
+</p> 
+</body> 
